@@ -59,16 +59,14 @@ export default function GleanThesisIntelligence() {
       <TopNav onNavigateHome={handleNavigateHome} />
       
       <div className="flex flex-1 overflow-hidden">
+        <Sidebar 
+          selectedCompany={view === "workspace" ? selectedCompany : null} 
+          onSelectCompany={handleSelectCompany} 
+        />
         {view === "home" ? (
-          <HomeScreen onNavigateToExpertPrep={handleNavigateToExpertPrep} onSelectCompany={handleSelectCompany} />
+          <HomeScreen onNavigateToExpertPrep={handleNavigateToExpertPrep} />
         ) : (
-          <>
-            <Sidebar 
-              selectedCompany={selectedCompany} 
-              onSelectCompany={handleSelectCompany} 
-            />
-            {renderWorkspaceContent()}
-          </>
+          renderWorkspaceContent()
         )}
       </div>
     </div>

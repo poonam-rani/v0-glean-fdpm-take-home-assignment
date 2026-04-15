@@ -1,7 +1,7 @@
 "use client"
 
 interface SidebarProps {
-  selectedCompany: string
+  selectedCompany: string | null
   onSelectCompany: (company: string) => void
 }
 
