@@ -40,17 +40,17 @@ export default function GleanThesisIntelligence() {
   const renderWorkspaceContent = () => {
     switch (activeTab) {
       case "debates":
-        return <DebatesScreen activeTab={activeTab} onTabChange={handleTabChange} />
+        return <DebatesScreen activeTab={activeTab} onTabChange={handleTabChange} company={selectedCompany} />
       case "contradictions":
-        return <ContradictionsScreen activeTab={activeTab} onTabChange={handleTabChange} />
+        return <ContradictionsScreen activeTab={activeTab} onTabChange={handleTabChange} company={selectedCompany} />
       case "open-questions":
-        return <OpenQuestionsScreen activeTab={activeTab} onTabChange={handleTabChange} />
+        return <OpenQuestionsScreen activeTab={activeTab} onTabChange={handleTabChange} company={selectedCompany} />
       case "expert-prep":
-        return <ExpertPrepScreen activeTab={activeTab} onTabChange={handleTabChange} />
+        return <ExpertPrepScreen activeTab={activeTab} onTabChange={handleTabChange} company={selectedCompany} />
       case "conviction":
-        return <ConvictionScreen activeTab={activeTab} onTabChange={handleTabChange} />
+        return <ConvictionScreen activeTab={activeTab} onTabChange={handleTabChange} company={selectedCompany} />
       default:
-        return <DebatesScreen activeTab={activeTab} onTabChange={handleTabChange} />
+        return <DebatesScreen activeTab={activeTab} onTabChange={handleTabChange} company={selectedCompany} />
     }
   }
 
