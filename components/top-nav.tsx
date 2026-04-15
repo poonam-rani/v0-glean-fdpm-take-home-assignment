@@ -1,46 +1,36 @@
 "use client"
 
-import { Search, Bell } from "lucide-react"
-
 interface TopNavProps {
   onNavigateHome: () => void
 }
 
 export function TopNav({ onNavigateHome }: TopNavProps) {
   return (
-    <header className="h-16 border-b border-[#E5E7EB] bg-white px-6 flex items-center justify-between">
-      <div className="flex items-center gap-2">
+    <header className="h-14 border-b border-white/10 bg-[#0f1117] px-4 flex items-center justify-between">
+      <div className="flex items-center gap-3">
         <button 
           onClick={onNavigateHome}
-          className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+          className="flex items-center gap-3 hover:opacity-80 transition-opacity"
         >
-          <span className="text-[#6366F1] font-semibold text-lg">glean</span>
-          <span className="text-gray-300">/</span>
-          <span className="text-gray-700 font-medium">Thesis Intelligence</span>
+          <span className="text-indigo-500 font-semibold text-[15px]">glean</span>
+          <span className="text-white/30">/</span>
+          <span className="text-white/90 text-sm">Thesis Intelligence</span>
         </button>
       </div>
       
-      <div className="flex items-center gap-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-          <input
-            type="text"
-            placeholder="Search across all research..."
-            className="w-80 h-10 pl-10 pr-4 rounded-lg border border-[#E5E7EB] bg-[#F7F7F8] text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#6366F1]/20 focus:border-[#6366F1]"
-          />
-        </div>
+      <div className="flex items-center gap-2">
+        <input
+          type="text"
+          placeholder="Search across all research..."
+          className="w-52 h-8 px-3 rounded-md border border-white/10 bg-white/[0.06] text-xs text-white/70 placeholder:text-white/40 focus:outline-none focus:border-indigo-500/50"
+        />
         
-        <button className="relative h-10 w-10 rounded-lg hover:bg-[#F7F7F8] flex items-center justify-center transition-colors">
-          <Bell className="h-5 w-5 text-gray-500" />
-          <span className="absolute top-2 right-2 h-2 w-2 bg-[#6366F1] rounded-full" />
-        </button>
-        
-        <div className="flex items-center gap-3">
-          <div className="h-9 w-9 rounded-full bg-[#6366F1] flex items-center justify-center text-white text-sm font-medium">
+        <div className="flex items-center gap-2">
+          <div className="h-7 w-7 rounded-full bg-white/10 flex items-center justify-center text-white/60 text-[11px] font-medium">
             BL
           </div>
-          <div className="text-sm text-gray-600">
-            Benny Lee <span className="text-gray-400">·</span> Millennium Management
+          <div className="text-xs text-white/60">
+            Benny Lee <span className="text-white/30">·</span> Millennium Management
           </div>
         </div>
       </div>

@@ -32,11 +32,9 @@ const debates = [
     expanded: true,
     bull: {
       text: "CRISPR partnership de-risks R&D. Casgevy approval validates platform. Multiple shots on goal beyond CF.",
-      assumption: "Assumes: Manufacturing scales successfully",
     },
     bear: {
       text: "Gene editing commercialization unproven at scale. Manufacturing complexity. Reimbursement uncertainty for one-time cures.",
-      assumption: "Assumes: Payer resistance continues",
     },
     sources: ["JPM Healthcare Conf, Jan 2026", "Goldman Sachs, Dec 2025"],
   },
@@ -54,27 +52,27 @@ const debates = [
 const getStatusStyles = (status: string) => {
   switch (status) {
     case "leaning-bull":
-      return { dot: "bg-[#6366F1]", text: "text-[#6366F1]", label: "Leaning bull", cardBg: "bg-[#EEF2FF]/30" }
+      return { dot: "bg-indigo-500", text: "text-indigo-400", label: "Leaning bull", border: "border-indigo-500/30" }
     case "open":
     default:
-      return { dot: "bg-[#D97706]", text: "text-[#D97706]", label: "Open", cardBg: "" }
+      return { dot: "bg-amber-500", text: "text-amber-500", label: "Open", border: "border-white/10" }
   }
 }
 
 export function DebatesScreen({ activeTab, onTabChange }: DebatesScreenProps) {
   return (
-    <div className="flex-1 bg-white overflow-auto">
-      <div className="border-b border-[#E5E7EB] bg-white px-8 pt-6">
+    <div className="flex-1 bg-[#0f1117] overflow-auto">
+      <div className="border-b border-white/10 bg-[#0f1117] px-8 pt-6">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-xl font-semibold text-gray-900">Vertex Pharmaceuticals</h1>
-            <p className="text-sm text-gray-500">Healthcare · Biotech · $VRTX</p>
+            <h1 className="text-lg font-medium text-white/95">Vertex Pharmaceuticals</h1>
+            <p className="text-xs text-white/40 mt-1">Healthcare · Biotech · $VRTX</p>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs bg-[#F7F7F8] text-gray-600 px-3 py-1.5 rounded-full border border-[#E5E7EB]">
+            <span className="text-xs bg-white/5 text-white/60 px-3 py-1.5 rounded-md">
               8 sources
             </span>
-            <span className="text-xs bg-[#F7F7F8] text-gray-600 px-3 py-1.5 rounded-full border border-[#E5E7EB]">
+            <span className="text-xs bg-white/5 text-white/60 px-3 py-1.5 rounded-md">
               Updated 2h ago
             </span>
           </div>
@@ -82,24 +80,24 @@ export function DebatesScreen({ activeTab, onTabChange }: DebatesScreenProps) {
         <WorkspaceTabs activeTab={activeTab} onTabChange={onTabChange} />
       </div>
 
-      <div className="p-8">
-        <div className="max-w-4xl flex flex-col gap-4">
+      <div className="p-6">
+        <div className="max-w-4xl flex flex-col gap-3">
           {debates.map((debate) => {
             const statusStyles = getStatusStyles(debate.status)
             return (
               <div
                 key={debate.id}
-                className={`rounded-lg border border-[#E5E7EB] overflow-hidden ${statusStyles.cardBg}`}
+                className={`rounded-lg border ${statusStyles.border} bg-white/[0.03] overflow-hidden`}
               >
                 <div className="p-4">
                   <div className="flex items-start justify-between mb-3">
                     <div>
-                      <h3 className="font-medium text-gray-900">{debate.title}</h3>
-                      <p className="text-sm text-gray-500">{debate.subtitle}</p>
+                      <h3 className="text-sm font-medium text-white/90">{debate.title}</h3>
+                      <p className="text-xs text-white/40 mt-1">{debate.subtitle}</p>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5">
                       <span className={`h-2 w-2 rounded-full ${statusStyles.dot}`} />
-                      <span className={`text-sm font-medium ${statusStyles.text}`}>
+                      <span className={`text-xs ${statusStyles.text}`}>
                         {statusStyles.label}
                       </span>
                     </div>
@@ -107,27 +105,31 @@ export function DebatesScreen({ activeTab, onTabChange }: DebatesScreenProps) {
 
                   {debate.expanded ? (
                     <>
-                      <div className="grid grid-cols-2 gap-4 mb-4">
-                        <div className="bg-[#ECFDF5] rounded-lg p-4 border border-[#16A34A]/10">
-                          <div className="text-xs font-semibold text-[#16A34A] uppercase tracking-wider mb-2">
+                      <div className="grid grid-cols-2 gap-3 mb-3">
+                        <div className="bg-green-500/10 border-l-2 border-green-500 rounded-r-md p-3">
+                          <div className="text-[11px] font-medium text-green-400 uppercase tracking-wide mb-1.5">
                             Bull Case
                           </div>
-                          <p className="text-sm text-gray-700 mb-2">{debate.bull?.text}</p>
-                          <p className="text-xs text-gray-500 italic">{debate.bull?.assumption}</p>
+                          <p className="text-xs text-white/70 leading-relaxed">{debate.bull?.text}</p>
+                          {debate.bull?.assumption && (
+                            <p className="text-[11px] text-white/35 mt-2">{debate.bull.assumption}</p>
+                          )}
                         </div>
-                        <div className="bg-[#FEF2F2] rounded-lg p-4 border border-[#DC2626]/10">
-                          <div className="text-xs font-semibold text-[#DC2626] uppercase tracking-wider mb-2">
+                        <div className="bg-red-500/10 border-l-2 border-red-500 rounded-r-md p-3">
+                          <div className="text-[11px] font-medium text-red-400 uppercase tracking-wide mb-1.5">
                             Bear Case
                           </div>
-                          <p className="text-sm text-gray-700 mb-2">{debate.bear?.text}</p>
-                          <p className="text-xs text-gray-500 italic">{debate.bear?.assumption}</p>
+                          <p className="text-xs text-white/70 leading-relaxed">{debate.bear?.text}</p>
+                          {debate.bear?.assumption && (
+                            <p className="text-[11px] text-white/35 mt-2">{debate.bear.assumption}</p>
+                          )}
                         </div>
                       </div>
                       <div className="flex items-center gap-2 flex-wrap">
                         {debate.sources.map((source, idx) => (
                           <span
                             key={idx}
-                            className="text-xs bg-[#F7F7F8] text-gray-600 px-2 py-1 rounded border border-[#E5E7EB]"
+                            className="text-[11px] bg-white/5 text-white/40 px-2 py-1 rounded"
                           >
                             {source}
                           </span>
@@ -136,12 +138,12 @@ export function DebatesScreen({ activeTab, onTabChange }: DebatesScreenProps) {
                     </>
                   ) : (
                     <>
-                      <p className="text-sm text-gray-700 mb-3">{debate.summary}</p>
+                      <p className="text-xs text-white/50 mb-3 leading-relaxed">{debate.summary}</p>
                       <div className="flex items-center gap-2 flex-wrap">
                         {debate.sources.map((source, idx) => (
                           <span
                             key={idx}
-                            className="text-xs bg-[#F7F7F8] text-gray-600 px-2 py-1 rounded border border-[#E5E7EB]"
+                            className="text-[11px] bg-white/5 text-white/40 px-2 py-1 rounded"
                           >
                             {source}
                           </span>

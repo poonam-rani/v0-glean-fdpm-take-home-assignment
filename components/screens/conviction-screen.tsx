@@ -1,6 +1,5 @@
 "use client"
 
-import { AlertTriangle } from "lucide-react"
 import { WorkspaceTabs } from "../workspace-tabs"
 
 interface ConvictionScreenProps {
@@ -24,7 +23,8 @@ const debates = [
     position: 50,
     bullEvidence: 3,
     bearEvidence: 2,
-    bgTint: "",
+    bgClass: "",
+    borderClass: "border-white/10",
   },
   {
     id: 2,
@@ -34,7 +34,8 @@ const debates = [
     position: 35,
     bullEvidence: 2,
     bearEvidence: 3,
-    bgTint: "",
+    bgClass: "",
+    borderClass: "border-white/10",
   },
   {
     id: 3,
@@ -44,7 +45,8 @@ const debates = [
     position: 75,
     bullEvidence: 4,
     bearEvidence: 1,
-    bgTint: "bg-[#ECFDF5]/30",
+    bgClass: "bg-green-500/5",
+    borderClass: "border-green-500/20",
   },
   {
     id: 4,
@@ -54,57 +56,47 @@ const debates = [
     position: 90,
     bullEvidence: 5,
     bearEvidence: 0,
-    bgTint: "bg-[#EEF2FF]/30",
+    bgClass: "bg-indigo-500/[0.08]",
+    borderClass: "border-indigo-500/30",
   },
 ]
 
-const getStatusStyles = (color: string) => {
+const getStatusTextColor = (color: string) => {
   switch (color) {
     case "green":
-      return "text-[#16A34A]"
+      return "text-green-400"
     case "indigo":
-      return "text-[#6366F1]"
+      return "text-indigo-300"
     default:
-      return "text-[#D97706]"
+      return "text-amber-500"
   }
 }
 
-const getStatBgColor = (color: string) => {
+const getStatValueColor = (color: string) => {
   switch (color) {
     case "green":
-      return "bg-[#ECFDF5]"
+      return "text-green-400"
     case "amber":
-      return "bg-[#FFFBEB]"
+      return "text-amber-500"
     default:
-      return "bg-[#F7F7F8]"
-  }
-}
-
-const getStatTextColor = (color: string) => {
-  switch (color) {
-    case "green":
-      return "text-[#16A34A]"
-    case "amber":
-      return "text-[#D97706]"
-    default:
-      return "text-gray-900"
+      return "text-white/95"
   }
 }
 
 export function ConvictionScreen({ activeTab, onTabChange }: ConvictionScreenProps) {
   return (
-    <div className="flex-1 bg-white overflow-auto">
-      <div className="border-b border-[#E5E7EB] bg-white px-8 pt-6">
+    <div className="flex-1 bg-[#0f1117] overflow-auto">
+      <div className="border-b border-white/10 bg-[#0f1117] px-8 pt-6">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-xl font-semibold text-gray-900">Vertex Pharmaceuticals</h1>
-            <p className="text-sm text-gray-500">Healthcare · Biotech · $VRTX</p>
+            <h1 className="text-lg font-medium text-white/95">Vertex Pharmaceuticals</h1>
+            <p className="text-xs text-white/40 mt-1">Healthcare · Biotech · $VRTX</p>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs bg-[#F7F7F8] text-gray-600 px-3 py-1.5 rounded-full border border-[#E5E7EB]">
+            <span className="text-xs bg-white/5 text-white/60 px-3 py-1.5 rounded-md">
               8 sources
             </span>
-            <span className="text-xs bg-[#F7F7F8] text-gray-600 px-3 py-1.5 rounded-full border border-[#E5E7EB]">
+            <span className="text-xs bg-white/5 text-white/60 px-3 py-1.5 rounded-md">
               Updated 2h ago
             </span>
           </div>
@@ -112,68 +104,77 @@ export function ConvictionScreen({ activeTab, onTabChange }: ConvictionScreenPro
         <WorkspaceTabs activeTab={activeTab} onTabChange={onTabChange} />
       </div>
 
-      <div className="p-8">
+      <div className="p-6">
         <div className="max-w-4xl">
-          {/* Stats row */}
-          <div className="grid grid-cols-4 gap-4 mb-8">
+          {/* Summary stats */}
+          <div className="grid grid-cols-4 gap-3 mb-6">
             {stats.map((stat) => (
               <div
                 key={stat.label}
-                className={`rounded-lg p-4 border border-[#E5E7EB] ${getStatBgColor(stat.color)}`}
+                className="bg-white/[0.03] rounded-lg p-3.5 text-center"
               >
-                <div className={`text-2xl font-semibold ${getStatTextColor(stat.color)}`}>
+                <div className={`text-2xl font-medium ${getStatValueColor(stat.color)}`}>
                   {stat.value}
                 </div>
-                <div className="text-sm text-gray-500">{stat.label}</div>
+                <div className="text-[11px] text-white/40 mt-1">{stat.label}</div>
               </div>
             ))}
           </div>
 
           {/* Section title */}
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Debate conviction status</h2>
+          <div className="text-[13px] text-white/70 font-medium mb-3">Debate conviction status</div>
 
-          {/* Debate rows */}
-          <div className="flex flex-col gap-3 mb-6">
+          {/* Conviction meters */}
+          <div className="flex flex-col gap-2.5 mb-6">
             {debates.map((debate) => (
               <div
                 key={debate.id}
-                className={`rounded-lg p-4 border border-[#E5E7EB] ${debate.bgTint}`}
+                className={`rounded-lg p-3.5 border ${debate.borderClass} ${debate.bgClass || 'bg-white/[0.03]'}`}
               >
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-medium text-gray-900">{debate.title}</h3>
-                  <span className={`text-sm font-medium ${getStatusStyles(debate.statusColor)}`}>
+                <div className="flex items-center justify-between mb-2.5">
+                  <h3 className="text-[13px] text-white/90">{debate.title}</h3>
+                  <span className={`text-[11px] ${getStatusTextColor(debate.statusColor)}`}>
                     {debate.status}
                   </span>
                 </div>
 
                 {/* Conviction meter */}
-                <div className="mb-2">
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs font-medium text-[#DC2626] w-10">Bear</span>
-                    <div className="flex-1 h-2 bg-gradient-to-r from-[#FEF2F2] via-[#F7F7F8] to-[#ECFDF5] rounded-full relative">
-                      <div
-                        className="absolute top-1/2 -translate-y-1/2 h-4 w-4 bg-white border-2 border-[#6366F1] rounded-full shadow-sm"
-                        style={{ left: `calc(${debate.position}% - 8px)` }}
-                      />
-                    </div>
-                    <span className="text-xs font-medium text-[#16A34A] w-10 text-right">Bull</span>
+                <div className="flex items-center gap-2 mb-2.5">
+                  <span className="text-[10px] text-red-500 w-8">Bear</span>
+                  <div className="flex-1 h-2 bg-white/10 rounded relative overflow-hidden">
+                    <div 
+                      className="absolute left-0 top-0 bottom-0 rounded"
+                      style={{ 
+                        width: `${debate.position}%`,
+                        background: debate.position < 50 
+                          ? 'linear-gradient(90deg, #ef4444 0%, #fbbf24 100%)'
+                          : debate.position < 75
+                          ? 'linear-gradient(90deg, #fbbf24 0%, #22c55e 100%)'
+                          : 'linear-gradient(90deg, #4ade80 0%, #22c55e 100%)'
+                      }}
+                    />
+                    <div 
+                      className="absolute top-1/2 -translate-y-1/2 w-1 h-4 bg-white rounded-sm"
+                      style={{ left: `calc(${debate.position}% - 2px)` }}
+                    />
                   </div>
+                  <span className="text-[10px] text-green-500 w-8 text-right">Bull</span>
                 </div>
 
-                <div className="text-xs text-gray-500">
+                <div className="text-[10px] text-white/40">
                   {debate.bullEvidence} bull evidence · {debate.bearEvidence} bear evidence
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Coverage gap alert */}
-          <div className="bg-[#FFFBEB] rounded-lg p-4 border border-[#D97706]/20">
-            <div className="flex items-start gap-3">
-              <AlertTriangle className="h-5 w-5 text-[#D97706] mt-0.5" />
+          {/* Coverage gaps alert */}
+          <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-3.5">
+            <div className="flex items-start gap-2.5">
+              <span className="text-amber-400 text-sm">&#9888;</span>
               <div>
-                <h4 className="font-medium text-gray-900 mb-1">Coverage gaps identified</h4>
-                <p className="text-sm text-gray-600">
+                <div className="text-[13px] text-amber-400 font-medium mb-1.5">Coverage gaps identified</div>
+                <p className="text-xs text-white/60 leading-relaxed">
                   The &quot;IRA pricing impact&quot; open question has no evidence tagged yet. Consider adding this to your next expert call.
                 </p>
               </div>

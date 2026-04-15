@@ -1,6 +1,6 @@
 "use client"
 
-import { Plus, Check } from "lucide-react"
+import { Check } from "lucide-react"
 import { WorkspaceTabs } from "../workspace-tabs"
 
 interface OpenQuestionsScreenProps {
@@ -55,28 +55,28 @@ const openQuestions = [
 const getPriorityStyles = (priority: string) => {
   switch (priority) {
     case "high":
-      return "bg-[#FEF2F2] text-[#DC2626]"
+      return "bg-red-500/15 text-red-400"
     case "medium":
-      return "bg-[#FFFBEB] text-[#D97706]"
+      return "bg-amber-500/15 text-amber-400"
     default:
-      return "bg-[#F7F7F8] text-gray-600"
+      return "bg-white/5 text-white/40"
   }
 }
 
 export function OpenQuestionsScreen({ activeTab, onTabChange }: OpenQuestionsScreenProps) {
   return (
-    <div className="flex-1 bg-white overflow-auto">
-      <div className="border-b border-[#E5E7EB] bg-white px-8 pt-6">
+    <div className="flex-1 bg-[#0f1117] overflow-auto">
+      <div className="border-b border-white/10 bg-[#0f1117] px-8 pt-6">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-xl font-semibold text-gray-900">Vertex Pharmaceuticals</h1>
-            <p className="text-sm text-gray-500">Healthcare · Biotech · $VRTX</p>
+            <h1 className="text-lg font-medium text-white/95">Vertex Pharmaceuticals</h1>
+            <p className="text-xs text-white/40 mt-1">Healthcare · Biotech · $VRTX</p>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs bg-[#F7F7F8] text-gray-600 px-3 py-1.5 rounded-full border border-[#E5E7EB]">
+            <span className="text-xs bg-white/5 text-white/60 px-3 py-1.5 rounded-md">
               8 sources
             </span>
-            <span className="text-xs bg-[#F7F7F8] text-gray-600 px-3 py-1.5 rounded-full border border-[#E5E7EB]">
+            <span className="text-xs bg-white/5 text-white/60 px-3 py-1.5 rounded-md">
               Updated 2h ago
             </span>
           </div>
@@ -84,57 +84,56 @@ export function OpenQuestionsScreen({ activeTab, onTabChange }: OpenQuestionsScr
         <WorkspaceTabs activeTab={activeTab} onTabChange={onTabChange} />
       </div>
 
-      <div className="p-8">
+      <div className="p-6">
         <div className="max-w-4xl">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-5">
             <div>
-              <h2 className="text-lg font-semibold text-gray-900">5 open questions</h2>
-              <p className="text-sm text-gray-500">Key unknowns to resolve for your thesis</p>
+              <h2 className="text-sm font-medium text-white/90">5 open questions</h2>
+              <p className="text-xs text-white/40 mt-1">Key unknowns to resolve for your thesis</p>
             </div>
-            <button className="flex items-center gap-2 px-4 py-2 border border-[#E5E7EB] text-sm font-medium rounded-lg hover:bg-[#F7F7F8] transition-colors text-gray-700">
-              <Plus className="h-4 w-4" />
-              Add question
+            <button className="flex items-center gap-2 px-3 py-2 border border-white/10 text-xs rounded-md hover:bg-white/5 transition-colors text-white/60">
+              + Add question
             </button>
           </div>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2.5">
             {openQuestions.map((item) => (
               <div
                 key={item.id}
-                className={`rounded-lg p-4 border border-[#E5E7EB] ${
-                  item.status === "resolved" ? "bg-[#F7F7F8]" : "bg-white"
-                } hover:shadow-sm transition-shadow`}
+                className={`rounded-lg p-4 border border-white/10 ${
+                  item.status === "resolved" ? "bg-white/[0.02]" : "bg-white/[0.03]"
+                } hover:bg-white/[0.05] transition-colors cursor-pointer`}
               >
                 <div className="flex items-start gap-3">
                   <div className={`mt-0.5 h-5 w-5 rounded-full border flex items-center justify-center ${
                     item.status === "resolved" 
-                      ? "bg-[#16A34A] border-[#16A34A]" 
-                      : "border-[#E5E7EB]"
+                      ? "bg-green-500 border-green-500" 
+                      : "border-white/20"
                   }`}>
                     {item.status === "resolved" && (
                       <Check className="h-3 w-3 text-white" />
                     )}
                   </div>
                   <div className="flex-1">
-                    <p className={`font-medium mb-2 ${
-                      item.status === "resolved" ? "text-gray-500 line-through" : "text-gray-900"
+                    <p className={`text-[13px] font-medium mb-2 ${
+                      item.status === "resolved" ? "text-white/40 line-through" : "text-white/90"
                     }`}>
                       {item.question}
                     </p>
                     {item.resolution && (
-                      <p className="text-sm text-gray-500 mb-2 italic">
+                      <p className="text-xs text-white/40 mb-2 italic">
                         Resolution: {item.resolution}
                       </p>
                     )}
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className={`text-xs px-2 py-0.5 rounded ${getPriorityStyles(item.priority)}`}>
+                      <span className={`text-[10px] px-2 py-0.5 rounded ${getPriorityStyles(item.priority)}`}>
                         {item.priority} priority
                       </span>
-                      <span className="text-xs bg-[#F7F7F8] text-gray-600 px-2 py-0.5 rounded">
+                      <span className="text-[10px] bg-white/5 text-white/40 px-2 py-0.5 rounded">
                         {item.sources} sources
                       </span>
                       {item.linkedDebate && (
-                        <span className="text-xs bg-[#EEF2FF] text-[#4F46E5] px-2 py-0.5 rounded">
+                        <span className="text-[10px] bg-indigo-500/15 text-indigo-300 px-2 py-0.5 rounded">
                           Linked: {item.linkedDebate}
                         </span>
                       )}

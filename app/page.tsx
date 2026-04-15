@@ -55,7 +55,7 @@ export default function GleanThesisIntelligence() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-[#0f1117] flex flex-col">
       <TopNav onNavigateHome={handleNavigateHome} />
       
       <div className="flex flex-1 overflow-hidden">

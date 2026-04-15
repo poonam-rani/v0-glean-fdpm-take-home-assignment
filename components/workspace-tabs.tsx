@@ -15,21 +15,18 @@ const tabs = [
 
 export function WorkspaceTabs({ activeTab, onTabChange }: WorkspaceTabsProps) {
   return (
-    <div className="flex items-center gap-1 border-b border-[#E5E7EB]">
+    <div className="flex items-center gap-1 border-b border-white/10 pb-3">
       {tabs.map((tab) => (
         <button
           key={tab.id}
           onClick={() => onTabChange(tab.id)}
-          className={`px-4 py-3 text-sm font-medium transition-colors relative ${
+          className={`px-4 py-2 text-[13px] rounded-md transition-colors ${
             activeTab === tab.id
-              ? "text-[#6366F1]"
-              : "text-gray-500 hover:text-gray-700"
+              ? "bg-indigo-500/15 text-indigo-300 font-medium"
+              : "text-white/50 hover:text-white/70"
           }`}
         >
           {tab.label}
-          {activeTab === tab.id && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#6366F1]" />
-          )}
         </button>
       ))}
     </div>
