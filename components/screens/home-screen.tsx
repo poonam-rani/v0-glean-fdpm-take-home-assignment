@@ -4,7 +4,15 @@ import { ArrowRight } from "lucide-react"
 
 interface HomeScreenProps {
   onNavigateToExpertPrep: () => void
+  onSelectCompany: (company: string) => void
 }
+
+const companies = [
+  { name: "Vertex Pharma", ticker: "VRTX", signals: 3 },
+  { name: "Moderna", ticker: "MRNA", signals: 2 },
+  { name: "Eli Lilly", ticker: "LLY", signals: 1 },
+  { name: "Regeneron", ticker: "REGN", signals: 0 },
+]
 
 const stats = [
   { label: "new signals", value: "12" },
@@ -63,13 +71,32 @@ const getSentimentStyles = (sentiment: string) => {
   }
 }
 
-export function HomeScreen({ onNavigateToExpertPrep }: HomeScreenProps) {
+export function HomeScreen({ onNavigateToExpertPrep, onSelectCompany }: HomeScreenProps) {
   return (
     <div className="flex-1 bg-[#0f1117] overflow-auto">
       <div className="max-w-4xl mx-auto p-8">
         <div className="mb-8">
           <h1 className="text-xl font-medium text-white/95">Good morning, Benny</h1>
           <p className="text-sm text-white/40 mt-1">Here&apos;s what changed overnight across your 4 covered companies</p>
+        </div>
+
+        <div className="mb-8">
+          <h2 className="text-sm font-medium text-white/70 mb-4">Your coverage</h2>
+          <div className="grid grid-cols-4 gap-3">
+            {companies.map((company) => (
+              <button
+                key={company.name}
+                onClick={() => onSelectCompany(company.name)}
+                className="bg-white/[0.03] rounded-lg p-4 border border-white/10 hover:bg-white/[0.05] hover:border-indigo-500/30 transition-colors text-left"
+              >
+                <div className="text-xs text-indigo-400 font-medium mb-1">${company.ticker}</div>
+                <div className="text-sm font-medium text-white/90">{company.name}</div>
+                {company.signals > 0 && (
+                  <div className="mt-2 text-[10px] text-amber-400">{company.signals} new signals</div>
+                )}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="grid grid-cols-4 gap-3 mb-8">

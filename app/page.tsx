@@ -60,7 +60,7 @@ export default function GleanThesisIntelligence() {
       
       <div className="flex flex-1 overflow-hidden">
         {view === "home" ? (
-          <HomeScreen onNavigateToExpertPrep={handleNavigateToExpertPrep} />
+          <HomeScreen onNavigateToExpertPrep={handleNavigateToExpertPrep} onSelectCompany={handleSelectCompany} />
         ) : (
           <>
             <Sidebar 
